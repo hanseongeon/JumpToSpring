@@ -1,0 +1,34 @@
+/* styles.css */
+
+.categories {
+  position: fixed; /* 고정 위치 */
+  left: 0; /* 왼쪽에 붙임 */
+  top: 15%; /* 맨 위에 붙임 */
+  height: 100%; /* 전체 높이를 사용 */
+  background-color: #f4f4f4; /* 배경색 추가 */
+  padding-top: 20px; /* 위쪽 여백 추가 */
+}
+
+.categories ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.categories ul li {
+  border-bottom: 1px solid #ccc; /* 각 항목 사이에 구분선 추가 */
+}
+
+.categories ul li:last-child {
+  border-bottom: none; /* 마지막 항목의 구분선 제거 */
+}
+
+.categories ul li a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.categories ul li a:hover {
+  background-color: #ddd;
+}

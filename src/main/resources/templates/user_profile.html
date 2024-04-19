@@ -1,0 +1,109 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!--<div th:each=" question : ${siteUser.questionList}" th:text="${question.subject}"></div>-->
+<!--<br>-->
+<!--<div th:each=" answer : ${siteUser.answerList}" th:text="${answer.content}"></div>-->
+<!--<br>-->
+<!--<div th:each=" comment : ${siteUser.commentList}" th:text="${comment.content}"></div>-->
+
+
+<div class="stats shadow ml-96">
+
+    <div class="stat">
+        <div class="stat-figure text-primary">
+<!--            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>-->
+        </div>
+        <div class="stat-title">Total Question</div>
+        <div>
+            <a href="/user/profile" class="stat-value text-primary" th:text="${siteUser.questionList.size()}"></a>
+        </div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-figure text-secondary">
+<!--            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>-->
+        </div>
+        <div class="stat-title">Total Answer</div>
+        <div>
+            <a href="/user/profileAnswer" class="stat-value text-secondary" th:text="${siteUser.answerList.size()}"></a>
+        </div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-figure text-secondary">
+            <!--            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>-->
+        </div>
+        <div class="stat-title">Total Comment</div>
+        <div>
+            <a href="/user/profileComment" class="stat-value " th:text="${siteUser.commentList.size()}"></a>
+        </div>
+    </div>
+
+
+
+    <div class="stat">
+        <div class="stat-figure text-secondary">
+            <div class="avatar online">
+                <div class="w-16 rounded-full">
+                    <img src="/imege/hui.jpg" />
+                </div>
+            </div>
+        </div>
+        <div class="stat-value " th:text="${siteUser.username}"></div>
+    </div>
+
+</div>
+
+    <table class="table">
+        <thead class="table-dark">
+        <tr class="text-center">
+            <th>번호</th>
+            <th style="width:50%">제목</th>
+            <th>글쓴이</th>
+            <th>작성일시</th>
+            <th>카테고리</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center" th:each="question, loop : ${paging}">
+            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
+            <td class="text-start">
+                <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+                <span class="text-danger small ms-2" th:if="${#lists.size(question.answerList) > 0}"
+                      th:text="${#lists.size(question.answerList)}">
+					</span>
+            </td>
+            <td><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
+            <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+            <td ><span th:if="${question.category != null}" th:text="${question.category.name}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- 페이징처리 시작 -->
+    <div th:if="${!paging.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                <a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 페이징처리 끝 -->
+
+
+</div>
+</html>
