@@ -43,7 +43,6 @@
     </div>
 
 
-
     <div class="stat">
         <div class="stat-figure text-secondary">
             <div class="avatar online">
@@ -54,6 +53,11 @@
         </div>
         <div class="stat-value " th:text="${siteUser.username}"></div>
     </div>
+
+    <form action="/user/imageform"  enctype="multipart/form-data">
+        <input type="file"  name="file" value="이미지 등록">
+        <input type="submit" value="이미지 저장">   
+    </form>
 
 </div>
 

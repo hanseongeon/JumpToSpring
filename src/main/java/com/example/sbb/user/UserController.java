@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.SocketTimeoutException;
 import java.security.Principal;
@@ -143,4 +144,11 @@ public class UserController {
         return "user_comment_profile";
     }
 
+    @PostMapping("/imageform")
+    public String imageform(@RequestParam("file")MultipartFile file){
+
+
+
+        return "";
+    }
 }

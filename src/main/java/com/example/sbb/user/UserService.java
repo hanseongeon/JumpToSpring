@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -104,5 +105,9 @@ public class UserService {
     public Page<Comment> getPagedCommentByUser(SiteUser siteUser, int page){
         Pageable pageable = PageRequest.of(page,10,Sort.by(Sort.Direction.DESC,"id"));
         return this.commentRepository.findByAuthor(siteUser,pageable);
+    }
+    public String urlsave(MultipartFile file){
+
+        return "";
     }
 }
