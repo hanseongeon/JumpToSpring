@@ -47,16 +47,26 @@
         <div class="stat-figure text-secondary">
             <div class="avatar online">
                 <div class="w-16 rounded-full">
-                    <img src="/imege/hui.jpg" />
+<!--                    <img id="profile_img" src="/imege/hui.jpg" />-->
+                    <img id="profile_img" th:src="@{|${url!=null?url:'/imege/hui.jpg'}|}" />
                 </div>
             </div>
         </div>
         <div class="stat-value " th:text="${siteUser.username}"></div>
     </div>
 
-    <form action="/user/imageform"  enctype="multipart/form-data">
-        <input type="file"  name="file" value="이미지 등록">
-        <input type="submit" value="이미지 저장">   
+<!--    <form id="image_form" th:action="@{|/user/imageform|}" method="post" enctype="multipart/form-data">-->
+<!--        <input id="file" type="file"  name="file" value="이미지 등록" style="display: none;">-->
+<!--        <input type="submit" value="이미지 저장">   -->
+<!--    </form>-->
+
+    <form id="image_form" th:action="@{|/user/imageform|}" method="post" enctype="multipart/form-data">
+        <input id="file" type="file"  name="file" value="이미지 등록" style="display: none;">
+        <input type="text" name="text" id="text" th:value="${text}"/>
+    </form>
+    <form id="image_save_form" th:action="@{|/user/imagesaveform|}" method="post">
+        <input type="hidden" name="url" th:value="${url}">
+        <input type="submit" value="이미지 저장">
     </form>
 
 </div>
@@ -107,7 +117,15 @@
         </ul>
     </div>
     <!-- 페이징처리 끝 -->
-
-
 </div>
+<script layout:fragment="script">
+    const profile_img = document.getElementById('profile_img');
+    profile_img.addEventListener('click', ()=>{
+        document.getElementById('file').click();
+    });
+    const file = document.getElementById('file');
+    file.addEventListener('change', ()=>{
+        document.getElementById('image_form').submit();
+    });
+</script>
 </html>
