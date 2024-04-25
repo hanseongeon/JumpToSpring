@@ -133,6 +133,7 @@ public class UserController {
         Page<Answer> paging = this.userService.getPagedAnswerByUser(siteUser, page);
         model.addAttribute("paging", paging);
         model.addAttribute("siteUser", siteUser);
+        model.addAttribute("url",siteUser.getProfile_image());
         return "user_answer_profile";
     }
 
@@ -142,6 +143,7 @@ public class UserController {
         Page<Comment> paging = this.userService.getPagedCommentByUser(siteUser, page);
         model.addAttribute("paging", paging);
         model.addAttribute("siteUser", siteUser);
+        model.addAttribute("url",siteUser.getProfile_image());
         return "user_comment_profile";
     }
 
