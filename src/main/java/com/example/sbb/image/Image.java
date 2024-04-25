@@ -1,4 +1,4 @@
-package com.example.sbb.imege;
+package com.example.sbb.image;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +14,7 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String key_value;
 
     private String url;
 

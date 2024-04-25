@@ -36,4 +36,5 @@ public class SiteUser {
     @OneToMany(mappedBy = "author",cascade = CascadeType.REMOVE)
     List<Comment> commentList;
 
+    private String profile_image;
 }

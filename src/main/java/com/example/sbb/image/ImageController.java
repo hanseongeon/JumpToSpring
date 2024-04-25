@@ -1,4 +1,4 @@
-package com.example.sbb.imege;
+package com.example.sbb.image;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
