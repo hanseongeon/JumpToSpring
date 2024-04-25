@@ -144,11 +144,5 @@ public class UserController {
         return "user_comment_profile";
     }
 
-    @PostMapping("/imageform")
-    public String imageform(@RequestParam("file")MultipartFile file){
 
-
-
-        return "";
-    }
 }

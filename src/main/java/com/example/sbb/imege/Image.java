@@ -17,4 +17,5 @@ public class Image {
 
     private String url;
 
+
 }
