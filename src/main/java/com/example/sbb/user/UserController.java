@@ -4,7 +4,6 @@ import com.example.sbb.answer.Answer;
 import com.example.sbb.comment.Comment;
 import com.example.sbb.email.EmailService;
 import com.example.sbb.question.Question;
-import com.example.sbb.question.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -22,8 +21,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.net.SocketTimeoutException;
 import java.security.Principal;
 
 @RequiredArgsConstructor
@@ -108,7 +107,7 @@ public class UserController {
 
         // 임시 비밀번호 저장
         siteUser.setPassword(passwordEncoder.encode(tempPassword));
-        this.userService.save(siteUser);
+        this.userService.temp_save(siteUser);
 
         // 이메일 전송
         emailService.sendEmail(siteUser.getEmail(), "임시 비밀번호 발급", "임시 비밀번호: " + tempPassword);
@@ -123,6 +122,8 @@ public class UserController {
         Page<Question> paging = this.userService.getPagedQuestionsByUser(siteUser, page);
         model.addAttribute("paging", paging);
         model.addAttribute("siteUser", siteUser);
+        if(!model.containsAttribute("url") || model.getAttribute("url")==null)
+            model.addAttribute("url",siteUser.getProfile_image());
         return "user_profile";
     }
 
@@ -145,10 +146,21 @@ public class UserController {
     }
 
     @PostMapping("/imageform")
-    public String imageform(@RequestParam("file")MultipartFile file){
+    public String imageform(@RequestParam("file")MultipartFile file, RedirectAttributes redirectAttributes,@RequestParam("text") String text){
+        String url = null;
+        if(file.getContentType().contains("image"))
+            url = userService.temp_save(file);
+        redirectAttributes.addFlashAttribute("url",url);
+        redirectAttributes.addFlashAttribute("text",text);
+        return "redirect:/user/profile";
+    }
 
-
-
-        return "";
+    @PostMapping("/imagesaveform")
+    public String imagesaveform(Principal principal, @RequestParam(value = "url",defaultValue = "")String url){
+        if(url.isBlank())
+            return "redirect:/user/profile";
+        SiteUser siteUser = userService.getUser(principal.getName());
+        userService.save(siteUser,url);
+        return "redirect:/user/profile";
     }
 }
