@@ -27,9 +27,11 @@ public class UserSecurityService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         if ("admin".equals(username)) {
             authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
+            siteUser.setRole("ADMIN");
+            userRepository.save(siteUser);
         } else {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
-        return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
+        return new UserDetail(siteUser);
     }
 }

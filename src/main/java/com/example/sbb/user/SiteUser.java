@@ -5,7 +5,9 @@ import com.example.sbb.comment.Comment;
 import com.example.sbb.question.Question;
 import jakarta.persistence.*;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class SiteUser {
 
     @Id
@@ -37,4 +40,19 @@ public class SiteUser {
     List<Comment> commentList;
 
     private String profile_image;
+
+    private String Role;
+
+    private String provider;
+    private String providerId;
+
+    @Builder
+    public SiteUser(String username, String password, String email, String role, String provider, String providerId) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.Role = role;
+        this.provider = provider;
+        this.providerId = providerId;
+    }
 }
