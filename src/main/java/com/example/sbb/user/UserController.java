@@ -7,6 +7,7 @@ import com.example.sbb.question.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -117,7 +118,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(Principal principal, Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String profile(@AuthenticationPrincipal UserDetail principal, Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         SiteUser siteUser = this.userService.findByUserName(principal.getName());
         Page<Question> paging = this.userService.getPagedQuestionsByUser(siteUser, page);
         model.addAttribute("paging", paging);

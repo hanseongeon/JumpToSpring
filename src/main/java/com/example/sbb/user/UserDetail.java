@@ -35,7 +35,7 @@ public class UserDetail implements UserDetails, OAuth2User {
     //별로 안중요 안씀
     @Override
     public String getName() {
-        return null;
+        return user.getUsername();
     }
 
 

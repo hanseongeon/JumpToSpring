@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .formLogin((formLogin) -> formLogin.loginPage("/user/login").defaultSuccessUrl("/"))
                 .logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                         .logoutSuccessUrl("/").invalidateHttpSession(true))
-                .oauth2Login(loign -> loign.loginPage("/loginForm")
+                .oauth2Login(login -> login.loginPage("/user/login")
                         .userInfoEndpoint(endpoint -> endpoint.userService(
                                 principalOauth2UserService
                         ))
