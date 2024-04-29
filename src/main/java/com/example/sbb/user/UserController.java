@@ -117,6 +117,7 @@ public class UserController {
         return "redirect:/question/list";
     }
 
+
     @GetMapping("/profile")
     public String profile(@AuthenticationPrincipal UserDetail principal, Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         SiteUser siteUser = this.userService.findByUserName(principal.getName());
