@@ -114,7 +114,7 @@ public class UserService {
         if (!file.isEmpty())
             try {
                 String path = resourceLoader.getResource("classpath:/static").getFile().getPath();
-                File fileFolder = new File("/image");
+                File fileFolder = new File(path + "/image");
                 if (!fileFolder.exists())
                     fileFolder.mkdirs();
                 String filePath = "/image/" + UUID.randomUUID().toString() + "." + file.getContentType().split("/")[1];
